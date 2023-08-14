@@ -1,4 +1,17 @@
 spring:
+  application:
+    name: user-service
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+
+server:
+  port: 9001
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
