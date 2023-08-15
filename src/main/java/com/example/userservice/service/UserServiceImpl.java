@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         userDto.setUserId(UUID.randomUUID().toString());
+        userDto.setEncryptedPwd("Encrypted Password "+userDto.getPwd());
 
-        userRepository.save(userMapper.toEntity(userDto));
-        return null;
+        return userMapper.entityToDto(userRepository.save(userMapper.toEntity(userDto)));
     }
 }
