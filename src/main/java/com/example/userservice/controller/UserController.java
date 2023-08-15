@@ -15,7 +15,7 @@ import com.example.userservice.service.UserService;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
 
     private final Environment env;
@@ -23,7 +23,7 @@ public class UserController {
     private final UserMapper userMapper;
     @GetMapping("/health_check")
     public String status() {
-        return "It's Working in User Service";
+        return String.format("It's Working in User Service on PORT %s", env.getProperty("local.server.port"));
     }
     @GetMapping("/welcome")
     public String welcome() {
