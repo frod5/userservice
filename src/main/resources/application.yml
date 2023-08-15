@@ -12,6 +12,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
 
 
 server:
