@@ -1,7 +1,9 @@
 package com.example.userservice.controller;
 
 import com.example.userservice.dto.UserDto;
+import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.mapper.UserMapper;
+import com.example.userservice.service.UserService;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +12,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.userservice.service.UserService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,6 +40,20 @@ public class UserController {
         UserDto dto = userMapper.toDto(user);
         userService.createUser(dto);
         return new ResponseEntity<>(userMapper.toResponseDto(dto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<ResponseUser>> getUsers() {
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByAll().stream()
+                .map(userMapper::entityToDto)
+                .map(userMapper::toResponseDto)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<ResponseUser> getUser(@PathVariable(name = "userId") String userId) {
+        return ResponseEntity.ok(userMapper.toResponseDto(userService.getUserByUserId(userId)));
     }
 }
 
