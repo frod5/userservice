@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/user-service")
+@RequestMapping("/")
 public class UserController {
-
+    
     private final Environment env;
     private final UserService userService;
     private final UserMapper userMapper;
